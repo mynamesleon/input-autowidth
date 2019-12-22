@@ -3,7 +3,7 @@
     "version": "1.0.1",
     "description": "Dependency-free class to set an input's width based on its content",
     "main": "dist/input-autowidth.min.js",
-    "module": "index.js",
+    "browser": "dist/input-autowidth.min.js",
     "scripts": {
         "build": "parcel build index.js --out-file input-autowidth.min.js --no-source-maps"
     },
