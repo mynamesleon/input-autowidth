@@ -1,31 +1,35 @@
 {
-  "name": "input-autowidth",
-  "version": "1.0.0",
-  "description": "Dependency-free class to set an input's width based on its content",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mynamesleon/input-autowidth.git"
-  },
-  "keywords": [
-    "autowidth",
-    "auto-width",
-    "autogrow",
-    "auto-grow",
-    "input",
-    "javascript",
-    "js"
-  ],
-  "author": "Leon Slater (https://www.mynamesleon.com)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mynamesleon/input-autowidth/issues"
-  },
-  "homepage": "https://github.com/mynamesleon/input-autowidth#readme",
-  "dependencies": {
-    "is-printable-keycode": "^1.0.1"
-  }
+    "name": "input-autowidth",
+    "version": "1.0.1",
+    "description": "Dependency-free class to set an input's width based on its content",
+    "main": "dist/input-autowidth.min.js",
+    "module": "index.js",
+    "scripts": {
+        "build": "parcel build index.js --out-file input-autowidth.min.js --no-source-maps"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mynamesleon/input-autowidth.git"
+    },
+    "keywords": [
+        "autowidth",
+        "auto-width",
+        "autogrow",
+        "auto-grow",
+        "input",
+        "javascript",
+        "js"
+    ],
+    "author": "Leon Slater (https://www.mynamesleon.com)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/mynamesleon/input-autowidth/issues"
+    },
+    "homepage": "https://github.com/mynamesleon/input-autowidth#readme",
+    "dependencies": {
+        "is-printable-keycode": "^1.0.1"
+    },
+    "devDependencies": {
+        "parcel-bundler": "^1.12.4"
+    }
 }
