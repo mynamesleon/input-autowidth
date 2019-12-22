@@ -1,6 +1,6 @@
 {
     "name": "input-autowidth",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Dependency-free class to set an input's width based on its content",
     "main": "dist/input-autowidth.min.js",
     "browser": "dist/input-autowidth.min.js",
