@@ -177,7 +177,7 @@ export default class inputAutoWidth {
         }
 
         // a bit of extra space just in case
-        const width = this.measureString(value) + 4;
+        let width = this.measureString(value) + 4;
         if (this.options && this.options.cache && this.cache) {
             this.cache[value] = width;
         }
