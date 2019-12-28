@@ -7,9 +7,9 @@ npm install input-autowidth
 ```
 
 ```javascript
-import inputAutoWidth from 'input-autowidth';
+import InputAutoWidth from 'input-autowidth';
 
-new inputAutoWidth(document.getElementById('username'), {
+new InputAutoWidth(document.getElementById('username'), {
     cache: false, // boolean
     minWidth: null, // number
     maxWidth: null // number

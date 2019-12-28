@@ -70,7 +70,7 @@ let testSpan;
  * @param {Element} input
  * @param {Object} options minLength, maxLength, and cache
  */
-export default class inputAutoWidth {
+export default class InputAutoWidth {
     constructor(input, options) {
         this.options = options;
         this.input = input;
