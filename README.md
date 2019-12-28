@@ -1,5 +1,8 @@
 # input-autowidth
 
+[![npm version](https://img.shields.io/npm/v/input-autowidth.svg)](http://npm.im/input-autowidth)
+[![gzip size](http://img.badgesize.io/https://unpkg.com/input-autowidth/dist/input-autowidth.min.js?compression=gzip)](https://unpkg.com/input-autowidth/dist/input-autowidth.min.js)
+
 Dependency-free JavaScript class to set an input's width based on its content
 
 ```
