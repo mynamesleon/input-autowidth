@@ -1,32 +1,27 @@
 import isPrintableKey from 'is-printable-keycode';
 
 /**
- * @description set styles on an element
- * @param {Element} element
- * @param {Object} s
+ * set styles on an element
  */
-function setCss(element, s) {
+function setCss(element: HTMLElement, styles: any) {
     if (!element) {
         return;
     }
-    for (let i in s) {
-        const style = typeof s[i] === 'number' ? s[i] + 'px' : s[i];
-        element.style[i] = style + ''; // force to be a string
+    for (const prop in styles) {
+        const style: string = typeof styles[prop] === 'number' ? styles[prop] + 'px' : styles[prop];
+        element.style[prop] = style + ''; // force to be a string
     }
 }
 
 /**
- * @description transfer styles from one Element to another
- * @param {Element} from
- * @param {Element} to
- * @param {Array=} properties
+ * transfer styles from one Element to another
  */
-function transferStyles(from, to, properties) {
+function transferStyles(from: HTMLElement, to: HTMLElement, properties: string[]) {
     if (!from || !to) {
         return;
     }
-    const fromStyles = getComputedStyle(from);
-    let styles = {};
+    const fromStyles: CSSStyleDeclaration = getComputedStyle(from);
+    let styles: any = {};
 
     if (properties && properties.length) {
         for (let i = 0, l = properties.length; i < l; i += 1) {
@@ -40,43 +35,36 @@ function transferStyles(from, to, properties) {
 }
 
 /**
- * @description get current user selection from within the input
- * @param {Element} input
- * @returns {Object} with start and length properties
+ * get current user selection from within an input
  */
-function getInputSelection(input) {
-    const result = {};
+function getInputSelection(input: HTMLInputElement): { start: number; length: number } {
+    const result: any = {};
     if ('selectionStart' in input) {
         result.start = input.selectionStart;
         result.length = input.selectionEnd - result.start;
-    } else if (document.selection) {
-        input.focus();
-        const selection = document.selection.createRange();
-        const selectionLength = selection.text.length;
-        selection.moveStart('character', -input.value.length);
+    } else if ((document as any).selection) {
+        (input as HTMLInputElement).focus();
+        const selection = (document as any).selection.createRange();
+        const selectionLength: number = selection.text.length;
+        selection.moveStart('character', -(input as HTMLInputElement).value.length);
         result.start = selection.text.length - selectionLength;
         result.length = selectionLength;
     }
     return result;
 }
 
-/**
- * @description storage for element used to detect value width
- */
-let testSpan;
+let testSpan: HTMLSpanElement;
 
-/**
- * @description set an input element to autogrow based on its value
- * @param {Element} input
- * @param {Object} options minLength, maxLength, and cache
- */
-export default class InputAutoWidth {
-    constructor(input, options) {
+export class InputAutoWidth {
+    options: any;
+    input: HTMLInputElement;
+    eventHandler: EventListenerObject;
+    currentWidth: number;
+    cache: any = {};
+
+    constructor(input: HTMLInputElement, options?: any) {
         this.options = options;
         this.input = input;
-        this.eventHandler;
-        this.currentWidth;
-        this.cache = {}; // cache widths
 
         this.trigger();
         this.eventHandler = this.trigger.bind(this);
@@ -86,12 +74,7 @@ export default class InputAutoWidth {
         this.input.addEventListener('keydown', this.eventHandler);
     }
 
-    /**
-     * @description measure the pixel width of a string in an input
-     * @param {String} str
-     * @returns {Number}
-     */
-    measureString(str) {
+    measureString(str: string): number {
         if (!str) {
             return 0;
         }
@@ -127,41 +110,35 @@ export default class InputAutoWidth {
     }
 
     /**
-     * @description check the current input value and set width
-     * @param {Event} event
+     * check the current input value and set width
      */
-    trigger(event = {}) {
+    trigger(event: any = {}) {
         if (event.metaKey || event.altKey) {
             return;
         }
 
-        let value = this.input.value;
+        let value: string = this.input.value;
         if (event.type && event.type.toLowerCase() === 'keydown') {
-            const keyCode = event.keyCode;
-            const keyCodeIsDelete = keyCode === 46;
-            const keyCodeIsBackspace = keyCode === 8;
+            const keyCode: number = event.keyCode;
+            const keyCodeIsDelete: boolean = keyCode === 46;
+            const keyCodeIsBackspace: boolean = keyCode === 8;
 
             // delete or backspace
             if (keyCodeIsDelete || keyCodeIsBackspace) {
                 const selection = getInputSelection(this.input);
                 if (selection.length) {
                     value =
-                        value.substring(0, selection.start) +
-                        value.substring(selection.start + selection.length);
+                        value.substring(0, selection.start) + value.substring(selection.start + selection.length);
                 } else if (keyCodeIsBackspace && selection.start) {
-                    value =
-                        value.substring(0, selection.start - 1) +
-                        value.substring(selection.start + 1);
+                    value = value.substring(0, selection.start - 1) + value.substring(selection.start + 1);
                 } else if (keyCodeIsDelete && selection.start !== undefined) {
-                    value =
-                        value.substring(0, selection.start) +
-                        value.substring(selection.start + 1);
+                    value = value.substring(0, selection.start) + value.substring(selection.start + 1);
                 }
             }
 
             // any other width affecting character
             else if (isPrintableKey(keyCode)) {
-                let character = String.fromCharCode(keyCode);
+                let character: string = String.fromCharCode(keyCode);
                 if (event.shiftKey) {
                     character = character.toUpperCase();
                 } else {
@@ -171,23 +148,23 @@ export default class InputAutoWidth {
             }
         }
 
-        let placeholder;
+        let placeholder: string;
         if (!value && (placeholder = this.input.getAttribute('placeholder'))) {
             value = placeholder;
         }
 
         // a bit of extra space just in case
-        let width = this.measureString(value) + 4;
+        let width: number = this.measureString(value) + 4;
         if (this.options && this.options.cache && this.cache) {
             this.cache[value] = width;
         }
 
-        const minWidth = this.options && this.options.minWidth;
+        const minWidth: number = this.options && this.options.minWidth;
         if (typeof minWidth === 'number' && width < minWidth) {
             width = minWidth;
         }
 
-        const maxWidth = this.options && this.options.maxWidth;
+        const maxWidth: number = this.options && this.options.maxWidth;
         if (typeof maxWidth === 'number' && width > maxWidth) {
             width = maxWidth;
         }
@@ -198,9 +175,6 @@ export default class InputAutoWidth {
         }
     }
 
-    /**
-     * @description destroy the autogrow behaviour
-     */
     destroy() {
         this.input.removeEventListener('blur', this.eventHandler);
         this.input.removeEventListener('input', this.eventHandler);
@@ -209,3 +183,5 @@ export default class InputAutoWidth {
         this.input = this.cache = null;
     }
 }
+
+export default InputAutoWidth;

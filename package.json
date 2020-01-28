@@ -1,12 +1,15 @@
 {
     "name": "input-autowidth",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Dependency-free class to set an input's width based on its content",
+    "source": "index.js",
     "main": "dist/input-autowidth.min.js",
-    "browser": "dist/input-autowidth.min.js",
     "scripts": {
-        "build": "parcel build index.js --out-file input-autowidth.min.js --no-source-maps"
+        "build": "webpack"
     },
+    "files": [
+        "dist"
+    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/mynamesleon/input-autowidth.git"
@@ -27,9 +30,12 @@
     },
     "homepage": "https://github.com/mynamesleon/input-autowidth#readme",
     "dependencies": {
-        "is-printable-keycode": "^1.0.1"
+        "is-printable-keycode": "^1.0.3"
     },
     "devDependencies": {
-        "parcel-bundler": "^1.12.4"
+        "ts-loader": "^6.2.1",
+        "typescript": "^3.7.5",
+        "webpack": "^4.41.5",
+        "webpack-cli": "^3.3.10"
     }
 }

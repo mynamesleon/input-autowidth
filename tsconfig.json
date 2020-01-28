@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "Node",
+        "outDir": "./dist/",
+        "module": "ES6",
+        "target": "ES3",
+        "allowJs": true
+    }
+}
